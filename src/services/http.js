@@ -4,7 +4,7 @@ export function fakestoreGet() {
     return axios(
         {
             method: 'get',
-            url: 'https://fakestoreapi.com/products?limit=15',
+            url: 'https://fakestoreapi.com/products?limit=5',
         }
     )
 }
