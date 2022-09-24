@@ -11,13 +11,11 @@ export const Main = () => {
 
     const [currItem, setCurrItem] = useState(null)
 
-    useEffect(() => {
-        dispatch(getItems())
-    }, [dispatch])
+    // useEffect(() => { dispatch(getItems()) }, [dispatch])
 
     const handleDeleteItem = (id) => {
-        dispatch(deleteItem(id))
-        if (currItem.id === id) { setCurrItem(null) }
+        dispatch(deleteItem(id));
+        (currItem && currItem.id === id) && setCurrItem(null)
 
     }
 
