@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { PageContainer, Error } from './AddItemPage.styles'
 import { useSelector, useDispatch } from 'react-redux'
 import { addItem } from '../../features/items/itemsSlice'
@@ -57,7 +57,6 @@ export const PageComp = () => {
                         value={formik.values.description}
                     />
                     {formik.touched.description && formik.errors.description ? (<Error>{formik.errors.description}</Error>) : null}
-
                 </div>
                 <div className="imput-container">
                     <input
@@ -70,7 +69,6 @@ export const PageComp = () => {
                         value={formik.values.image}
                     />
                     {formik.touched.image && formik.errors.image ? (<Error>{formik.errors.image}</Error>) : null}
-
                 </div>
                 <div className="imput-container">
                     <input

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, PageContainer, ItemListCard, Img, Img2, Col, Row, ListContainer, DetailsContainer, CardTitle, CardText } from './Main.styles'
 import { getItems, deleteItem } from '../../features/items/itemsSlice'
 import { useSelector, useDispatch } from 'react-redux'
+import { isLocalStorageEmpty } from '../../services/utils'
 
 export const Main = () => {
     const dispatch = useDispatch();
@@ -11,12 +12,15 @@ export const Main = () => {
 
     const [currItem, setCurrItem] = useState(null)
 
-    // useEffect(() => { dispatch(getItems()) }, [dispatch])
+    useEffect(() => {
+        if (isLocalStorageEmpty()) {
+            dispatch(getItems())
+        }
+    }, [dispatch])
 
     const handleDeleteItem = (id) => {
         dispatch(deleteItem(id));
         (currItem && currItem.id === id) && setCurrItem(null)
-
     }
 
     if (items) {

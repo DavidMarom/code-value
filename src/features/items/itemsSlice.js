@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { fakestoreGet } from '../../services/fakeDbService'
+import { saveJSONtoLocalStorage, getJSONfromLocalStorage, isLocalStorageEmpty } from '../../services/utils'
 
 export const getItems = createAsyncThunk(
     'items/getItems', async () => {
@@ -11,15 +12,24 @@ export const getItems = createAsyncThunk(
         }
     });
 
+const fetchItemsAndUpdateLocalStorage = () => {
+    const items = fakestoreGet();
+    saveJSONtoLocalStorage('cv-store-items', items);
+    return items;
+}
+
 export const itemsSlice = createSlice({
     name: 'items',
     initialState: {
-        items: fakestoreGet(),
+        items: (isLocalStorageEmpty() ? fetchItemsAndUpdateLocalStorage() : getJSONfromLocalStorage('cv-store-items')),
         isLoading: false
     },
     reducers: {
         deleteItem: (state, action) => {
-            state.items = state.items.filter(item => item.id !== action.payload)
+            const newStoreItems = state.items.filter(item => item.id !== action.payload)
+            saveJSONtoLocalStorage('cv-store-items', newStoreItems);
+            state.items = newStoreItems;
+
         },
         addItem: (state, action) => {
             const newItem = {
@@ -31,7 +41,9 @@ export const itemsSlice = createSlice({
                 price: action.payload.price,
             }
 
-            state.items.push(newItem)
+            const newStoreItems = [...state.items, newItem];
+            saveJSONtoLocalStorage('cv-store-items', newStoreItems);
+            state.items = newStoreItems;
         }
     },
     extraReducers: {
@@ -39,7 +51,6 @@ export const itemsSlice = createSlice({
             state.isLoading = true;
         },
         [getItems.fulfilled]: (state, action) => {
-            console.log('=== FULFILLED ===', action.payload)
             state.items = action.payload;
             state.isLoading = false;
         },
