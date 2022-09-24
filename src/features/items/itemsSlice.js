@@ -22,15 +22,13 @@ export const itemsSlice = createSlice({
             state.items = state.items.filter(item => item.id !== action.payload)
         },
         addItem: (state, action) => {
-            console.log('=== PAYLOAD ====', action.payload)
-
             const newItem = {
-                date: "2021-01-01T00:00:00.000Z",
-                description: "test",
-                id: 100,
-                image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-                name: "test",
-                price: 100,
+                date: new Date().toLocaleString(),
+                description: action.payload.description,
+                id: (new Date()).getTime(),
+                image: action.payload.image,
+                name: action.payload.name,
+                price: action.payload.price,
             }
 
             state.items.push(newItem)

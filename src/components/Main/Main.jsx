@@ -45,6 +45,7 @@ export const Main = () => {
                         <p>{currItem.description}</p>
                         <p>{currItem.price}</p>
                         <p>{currItem.date}</p>
+                        <p>{currItem.id}</p>
                     </>
                         :
                         null
