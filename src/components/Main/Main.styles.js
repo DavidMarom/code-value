@@ -60,7 +60,14 @@ export const DetailsContainer = styled.div`
 export const Col = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: space-between;
+justify-content: start;
+width:100%;
+`
+
+export const Row = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: start;
 `
 
 // Fonts and text

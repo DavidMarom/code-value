@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, PageContainer, ItemListCard, Img, Img2, Col, ListContainer, DetailsContainer, CardTitle, CardText } from './Main.styles'
+import { Button, PageContainer, ItemListCard, Img, Img2, Col, Row, ListContainer, DetailsContainer, CardTitle, CardText } from './Main.styles'
 import { getItems, deleteItem } from '../../features/items/itemsSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -40,10 +40,12 @@ export const Main = () => {
                 {/* ======================== Right Side ===================== */}
                 <DetailsContainer darkMode={isDark}>
                     {currItem ? <>
-                        <Img2 src={currItem.image} alt="" />
-                        <CardTitle>{currItem.name}</CardTitle>
+                        <Row>
+                            <Img2 src={currItem.image} alt="" />
+                            <CardTitle>{currItem.name}</CardTitle>
+                        </Row>
                         <p>{currItem.description}</p>
-                        <p>{currItem.price}</p>
+                        <p>Price: {currItem.price}</p>
                         <p>{currItem.date}</p>
                         <p>{currItem.id}</p>
                     </>
